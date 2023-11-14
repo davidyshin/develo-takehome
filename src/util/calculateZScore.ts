@@ -14,6 +14,7 @@ export const calculateZScore = (
   }
 
   const LMS = findLMSForAgeAndSex(sex, agemos, data);
+
   if (LMS !== null) {
     const { L, M, S } = LMS;
     // zScore calculation formula given
@@ -43,6 +44,7 @@ export const findLMSForAgeAndSex = (
       ageInData <= ageCeiling
     );
   });
+
   if (row) {
     return { L: row.L, M: row.M, S: row.S };
   } else {

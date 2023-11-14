@@ -41,16 +41,24 @@ app.get("/calculate-zscore", async (req, res) => {
       bmi: bmi ? parseFloat(bmi as string) : undefined,
     };
 
-    // Array of valid attribute values for error catching
-    const validAttributes: PatientAttribute[] = [
+    const validAttributes: Set<PatientAttribute> = new Set([
       "height",
       "weight",
       "head_circumference",
       "bmi",
-    ];
+    ]);
 
-    if (!validAttributes.includes(req.query.attribute as PatientAttribute)) {
+    // Validate attribute
+    if (!validAttributes.has(req.query.attribute as PatientAttribute)) {
       return res.status(400).send("Invalid attribute.");
+    }
+
+    // Ensure the attribute has a non-null value in the patient object
+    if (
+      patient[attribute as keyof Patient] === undefined ||
+      patient[attribute as keyof Patient] === null
+    ) {
+      return res.status(400).send(`${attribute} value is missing.`);
     }
 
     const dataName = `${attribute}-for-age`;
