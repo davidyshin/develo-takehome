@@ -1,5 +1,3 @@
-# develo-takehome
-
 # Develo - Growth Chart Calculation (Take Home)
 
 ## Introduction
