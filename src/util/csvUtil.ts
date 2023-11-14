@@ -1,13 +1,6 @@
 import fs = require("fs");
 import csv = require("csv-parser");
-
-export interface LMSRow {
-  Sex: string; // 1 for male, 2 for female
-  Agemos: string;
-  L: number;
-  M: number;
-  S: number;
-}
+import { LMSRow } from "../types/csv";
 
 export const parseCSV = (filePath: string): Promise<LMSRow[]> => {
   const results: LMSRow[] = [];

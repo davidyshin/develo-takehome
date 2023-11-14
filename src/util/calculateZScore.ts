@@ -1,20 +1,6 @@
 // Assuming LMSRow is defined as before
-import { LMSRow } from "./csvUtil";
-
-export type PatientAttribute =
-  | "height"
-  | "weight"
-  | "head_circumference"
-  | "bmi";
-
-export interface Patient {
-  agemos: number;
-  sex: number;
-  weight?: number;
-  height?: number;
-  head_circumference?: number;
-  bmi?: number;
-}
+import { LMSRow } from "../types/csv";
+import { Patient, PatientAttribute } from "../types/patient";
 
 export const calculateZScore = (
   patient: Patient,

@@ -1,10 +1,8 @@
 import express from "express";
-import { parseCSV, LMSRow } from "./util/csvUtil";
-import {
-  calculateZScore,
-  Patient,
-  PatientAttribute,
-} from "./util/calculateZScore";
+import { parseCSV } from "./util/csvUtil";
+import { calculateZScore } from "./util/calculateZScore";
+import { Patient, PatientAttribute } from "./types/patient";
+import { LMSRow } from "./types/csv";
 import * as path from "path";
 
 const app = express();
@@ -81,7 +79,7 @@ app.get("/calculate-zscore", async (req, res) => {
       return res
         .status(404)
         .send(
-          `Could not calculate zScore for patient with agemos: ${patient.agemos}, sex: ${patient.sex}.`
+          `Could not calculate ${attribute} zScore for patient with agemos: ${patient.agemos}, sex: ${patient.sex}.`
         );
     }
   } catch (error) {
