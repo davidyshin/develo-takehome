@@ -56,6 +56,16 @@ Using a uniform file name (ex: {attribute}-for-age.csv), we can use the attribut
 
 - One feature I decided to add was the `forInfant` boolean parameter. This parameter allows the API to determine whether to use the csv file tailored for infants or the standard growth data csv file.
   - If `forInfant === true`, we append `"-infant"` to the csv file name.
+  ```
+    // bmi calculation is not available for infants
+    // head_circumference calculation is only available for infants
+    // figure out which csv accordingly
+    const dataFilePath =
+      (attribute === "head_circumference" || forInfant === "true") &&
+      attribute !== "bmi"
+        ? dataName + "-infant.csv"
+        : dataName + ".csv";
+    ```
 
 
 ### Challenges and Solutions

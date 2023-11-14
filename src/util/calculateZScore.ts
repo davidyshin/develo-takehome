@@ -38,17 +38,25 @@ export const calculateZScore = (
   return null;
 };
 
-
 // Return LMS for specific age and sex provided by query params
 export const findLMSForAgeAndSex = (
   sex: number,
   agemos: number,
   data: LMSRow[]
 ): { L: number; M: number; S: number } | null => {
-  const row = data.find((row) => {
-    return parseInt(row.Sex) === sex && parseFloat(row.Agemos) === agemos;
-  });
+  const ageFloor = Math.floor(agemos);
+  const ageCeiling = ageFloor + 1;
 
+  const row = data.find((row) => {
+    const ageInData = parseFloat(row.Agemos);
+    // Check if the provided age falls within the range for this data point
+    // Based on https://www.cdc.gov/growthcharts/percentile_data_files.htm
+    return (
+      parseInt(row.Sex) === sex &&
+      ageInData > ageFloor &&
+      ageInData <= ageCeiling
+    );
+  });
   if (row) {
     return { L: row.L, M: row.M, S: row.S };
   } else {
